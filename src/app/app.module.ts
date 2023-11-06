@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from '../auth/auth.module';
 import { ProductModule } from '../product/product.module';
 import { ReviewModule } from '../review/review.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { initMongoDBConfig } from 'src/configs/mongo.config';
-import { PageModule } from 'src/page/page.module';
+import { initMongoDBConfig } from '../configs/mongo.config';
+import { PageModule } from '../page/page.module';
+import { UsrModule } from './usr/usr.module';
 
 @Module({
   imports: [
@@ -21,8 +20,7 @@ import { PageModule } from 'src/page/page.module';
       inject: [ConfigService],
       useFactory: initMongoDBConfig,
     }),
+    UsrModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
