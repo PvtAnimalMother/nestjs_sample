@@ -39,6 +39,13 @@ describe('AppController (e 2e)', () => {
         expect({ createdId }).toBeDefined();
       });
   });
+  it('review/create (POST) - fail', async () => {
+    return request(app.getHttpServer())
+      .post('/review/create')
+      .send({ ...testDto, rating: 6 })
+      .expect(400)
+      .then((error) => console.log(error.body));
+  });
 
   it('review/byProduct/:productId (GET) - success', async () => {
     return request(app.getHttpServer())

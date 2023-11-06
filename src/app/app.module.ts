@@ -6,7 +6,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { initMongoDBConfig } from '../configs/mongo.config';
 import { PageModule } from '../page/page.module';
-import { UsrModule } from './usr/usr.module';
 
 @Module({
   imports: [
@@ -20,7 +19,6 @@ import { UsrModule } from './usr/usr.module';
       inject: [ConfigService],
       useFactory: initMongoDBConfig,
     }),
-    UsrModule,
   ],
 })
 export class AppModule {}
