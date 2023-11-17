@@ -1,11 +1,12 @@
+import { BaseModel } from './../../common/models/base.model';
 import { ProductModel } from '../../product/models/product.model';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types, now } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 
 export type ReviewDocument = HydratedDocument<Review>;
 
 @Schema()
-export class Review {
+export class Review extends BaseModel {
   @Prop()
   name: string;
 
@@ -20,14 +21,6 @@ export class Review {
 
   @Prop({ type: Types.ObjectId, ref: ProductModel.name })
   productId: string;
-  // @Prop({ type: Types.ObjectId, ref: ProductModel.name })
-  // product: ProductModel;
-
-  @Prop({ default: now() })
-  createdAt: Date;
-
-  @Prop({ default: now() })
-  updatedAt: Date;
 }
 
 export const ReviewSchema = SchemaFactory.createForClass(Review);

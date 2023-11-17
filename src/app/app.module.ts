@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from '../auth/auth.module';
+import { UserModule } from '../user/user.module';
 import { ProductModule } from '../product/product.module';
 import { ReviewModule } from '../review/review.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -9,7 +9,7 @@ import { PageModule } from '../page/page.module';
 
 @Module({
   imports: [
-    AuthModule,
+    UserModule,
     PageModule,
     ProductModule,
     ReviewModule,
