@@ -1,3 +1,4 @@
+import { AuthDto } from './../src/user/dto/auth.dto';
 import { CreateReviewDto } from './../src/review/dto/create-review.dto';
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
@@ -16,9 +17,15 @@ const testDto: CreateReviewDto = {
   productId,
 };
 
+const authDto: AuthDto = {
+  email: 'a2k@mail.com',
+  password: 'qwerty123',
+};
+
 describe('AppController (e 2e)', () => {
   let app: INestApplication;
   let createdId: string;
+  let token: string;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -27,6 +34,11 @@ describe('AppController (e 2e)', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
+
+    const { body } = await request(app.getHttpServer())
+      .post('/user/login')
+      .send(authDto);
+    token = body.accessToken;
   });
 
   it('review/create (POST) - success', async () => {
@@ -71,12 +83,14 @@ describe('AppController (e 2e)', () => {
   it('review/:id (DELETE) - success', () => {
     return request(app.getHttpServer())
       .delete(`/review/${createdId}`)
+      .set('Authorization', `Bearer ${token}`)
       .expect(200);
   });
 
   it('review/:id (DELETE) - fail', () => {
     return request(app.getHttpServer())
       .delete(`/review/${new Types.ObjectId().toHexString()}`)
+      .set('Authorization', `Bearer ${token}`)
       .expect(404, {
         statusCode: 404,
         message: REVIEW_NOT_FOUND,
