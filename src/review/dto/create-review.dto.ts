@@ -1,4 +1,5 @@
 import { IsString, IsNumber, Max, Min } from 'class-validator';
+import { Types } from 'mongoose';
 
 export class CreateReviewDto {
   @IsString()

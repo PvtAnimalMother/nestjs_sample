@@ -1,15 +1,19 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, now } from 'mongoose';
+import { BaseModel } from 'src/common/models/base.model';
 
 export type ProductDocument = HydratedDocument<ProductModel>;
 
 class ProductCharacteristics {
+  @Prop()
   name: string;
+
+  @Prop()
   value: string;
 }
 
 @Schema()
-export class ProductModel {
+export class ProductModel extends BaseModel {
   @Prop()
   image: string;
 
@@ -20,13 +24,10 @@ export class ProductModel {
   price: number;
 
   @Prop()
-  oldPrice: number;
+  oldPrice?: number;
 
   @Prop()
   credit: number;
-
-  @Prop()
-  calculatedRating: number;
 
   @Prop()
   description: string;
