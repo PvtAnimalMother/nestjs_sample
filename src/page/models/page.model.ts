@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, now } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type PageDocument = HydratedDocument<PageModel>;
 
@@ -32,7 +32,7 @@ export class HHData {
   seniorSalary: number;
 }
 
-@Schema()
+@Schema({})
 export class PageModel {
   @Prop({ enum: TopLevelCategory })
   firstCategory: TopLevelCategory;
@@ -65,4 +65,8 @@ export class PageModel {
   tags: string[];
 }
 
-export const PageSchema = SchemaFactory.createForClass(PageModel);
+const PageSchema = SchemaFactory.createForClass(PageModel);
+
+PageSchema.index({ title: 'text', seoText: 'text' });
+
+export { PageSchema };

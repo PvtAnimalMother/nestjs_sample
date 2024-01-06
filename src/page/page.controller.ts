@@ -76,4 +76,9 @@ export class PageController {
   async find(@Body() dto: FindPageDto) {
     return await this.pageService.findByFirstCategory(dto);
   }
+
+  @Get('search/:query')
+  async searc(@Param('query') query: string) {
+    return await this.pageService.findBySearchRequest(query);
+  }
 }

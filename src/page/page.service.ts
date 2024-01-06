@@ -16,14 +16,6 @@ export class PageService {
     return await this.page.create(dto);
   }
 
-  async findById(id: string): Promise<PageDocument | null> {
-    return await this.page.findById(id).exec();
-  }
-
-  async findByAlias(alias: string): Promise<PageDocument | null> {
-    return await this.page.findOne({ alias }).exec();
-  }
-
   async deleteById(id: string): Promise<PageDocument | null> {
     return await this.page.findByIdAndDelete(id).exec();
   }
@@ -36,5 +28,24 @@ export class PageService {
     return await this.page
       .find({ firstCategory }, { alias: 1, title: 1, secondCategory: 1 })
       .exec();
+  }
+
+  async findBySearchRequest(query: string) {
+    return await this.page
+      .find({
+        $text: {
+          $search: query,
+          $caseSensitive: false,
+        },
+      })
+      .exec();
+  }
+
+  async findById(id: string): Promise<PageDocument | null> {
+    return await this.page.findById(id).exec();
+  }
+
+  async findByAlias(alias: string): Promise<PageDocument | null> {
+    return await this.page.findOne({ alias }).exec();
   }
 }
