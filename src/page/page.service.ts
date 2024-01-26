@@ -26,7 +26,20 @@ export class PageService {
 
   async findByFirstCategory({ firstCategory }: FindPageDto) {
     return await this.page
-      .find({ firstCategory }, { alias: 1, title: 1, secondCategory: 1 })
+      // .find({ firstCategory }, { alias: 1, title: 1, secondCategory: 1 })
+      .aggregate([
+        {
+          $match: {
+            firstCategory: firstCategory,
+          },
+        },
+        {
+          $group: {
+            _id: { secondCategory: '$secondCategory' },
+            pages: { $push: { alias: '$alias', title: '$title' } },
+          },
+        },
+      ])
       .exec();
   }
 
