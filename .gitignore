@@ -3,3 +3,4 @@ dist
 .DS_Store
 mongo-data
 .env
+/uploads
