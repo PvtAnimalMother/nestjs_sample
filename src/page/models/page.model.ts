@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { BaseModel } from '../../common/models/base.model';
 
 export type PageDocument = HydratedDocument<PageModel>;
 
@@ -33,7 +34,7 @@ export class HHData {
 }
 
 @Schema({})
-export class PageModel {
+export class PageModel extends BaseModel {
   @Prop({ enum: TopLevelCategory })
   firstCategory: TopLevelCategory;
 

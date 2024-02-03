@@ -61,4 +61,8 @@ export class PageService {
   async findByAlias(alias: string): Promise<PageDocument | null> {
     return await this.page.findOne({ alias }).exec();
   }
+
+  async findAll() {
+    return await this.page.find({}).exec();
+  }
 }
