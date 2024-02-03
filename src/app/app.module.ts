@@ -7,9 +7,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { initMongoDBConfig } from '../configs/mongo.config';
 import { PageModule } from '../page/page.module';
 import { FilesModule } from '../files/files.module';
+import { SitemapModule } from '../sitemap/sitemap.module';
 
 @Module({
   imports: [
+    SitemapModule,
     UserModule,
     PageModule,
     ProductModule,
