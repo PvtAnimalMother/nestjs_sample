@@ -8,9 +8,16 @@ import { initMongoDBConfig } from '../configs/mongo.config';
 import { PageModule } from '../page/page.module';
 import { FilesModule } from '../files/files.module';
 import { SitemapModule } from '../sitemap/sitemap.module';
+import { TelegramModule } from '../telegram/telegram.module';
+import { initTelegrafConfig } from '../configs/telegram.config';
 
 @Module({
   imports: [
+    TelegramModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: initTelegrafConfig,
+    }),
     SitemapModule,
     UserModule,
     PageModule,
